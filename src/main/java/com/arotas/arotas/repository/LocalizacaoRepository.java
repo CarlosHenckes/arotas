@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface LocalizacaoRepository extends MongoRepository<Veiculo, String> {
     Veiculo findByPlaca(String placa);
-    GeoResults<Veiculo> findByLocalizacaoNear(Point localizacao, Distance distance);
+    GeoResults<Veiculo> findOneLocalizacaoNear(Point localizacao, Distance distance);
 }
