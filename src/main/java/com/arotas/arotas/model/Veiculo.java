@@ -1,6 +1,7 @@
 package com.arotas.arotas.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -11,7 +12,9 @@ public class Veiculo implements Serializable {
     private String id;
     private String placa;
     private String nomeMotorista;
+    @GeoSpatialIndexed
     private Localizacao localizacao;
+    private Status status;
 
     public Veiculo(String id, String placa, String nomeMotorista, Localizacao localizacao) {
         this.id = id;
@@ -50,5 +53,13 @@ public class Veiculo implements Serializable {
 
     public void setLocalizacao(Localizacao localizacao) {
         this.localizacao = localizacao;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
