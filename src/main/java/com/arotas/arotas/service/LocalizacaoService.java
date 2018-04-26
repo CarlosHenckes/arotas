@@ -28,6 +28,6 @@ public class LocalizacaoService {
     }
 
     public GeoResults<Veiculo> veiculosProximos(float latitude, float longitude, float distance){
-        return repository.findByLocalizacaoNear(new Point(latitude, longitude), new Distance(distance, Metrics.KILOMETERS));
+        return repository.findOneLocalizacaoNear(new Point(latitude, longitude), new Distance(distance, Metrics.KILOMETERS));
     }
 }
