@@ -55,4 +55,9 @@ public class LocalizacaoController {
         service.registrarCorrida(viagem);
     }
 
+    @GetMapping("/percorridas")
+    public  List<Viagem> resumoDasCorridas(){
+        return null;
+    }
+
 }
