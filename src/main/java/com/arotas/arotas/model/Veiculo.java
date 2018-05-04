@@ -16,11 +16,14 @@ public class Veiculo implements Serializable {
     private Localizacao localizacao;
     private Status status;
 
-    public Veiculo(String id, String placa, String nomeMotorista, Localizacao localizacao) {
+    public Veiculo(){}
+
+    public Veiculo(String id, String placa, String nomeMotorista, Localizacao localizacao, Status status) {
         this.id = id;
         this.placa = placa;
         this.nomeMotorista = nomeMotorista;
         this.localizacao = localizacao;
+        this.status = status;
     }
 
     public String getId() {

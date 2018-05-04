@@ -7,6 +7,8 @@ public class Localizacao implements Serializable {
     private Float latitude;
     private Float longitude;
 
+    public Localizacao(){}
+
     public Localizacao(Float latitude, Float longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
