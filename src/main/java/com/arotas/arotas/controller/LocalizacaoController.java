@@ -69,8 +69,9 @@ public class LocalizacaoController {
     public  List<Percorridas> resumoDasCorridas(){
 
         Aggregation aggregation = newAggregation(
-                group("placa").sum("percorrida").as("kilometrosPercorridos"),
-                sort(Sort.Direction.ASC, previousOperation(), "placa")
+                group("placa").sum("percorrida").as("kilometrosPercorridos")
+                .addToSet("placa").as("placa"),
+                sort(Sort.Direction.ASC, previousOperation(), "kilometrosPercorridos")
         );
 
         AggregationResults groupResults = mongoTemplate.aggregate(
