@@ -1,14 +1,21 @@
 package com.arotas.arotas.controller;
 
+import com.arotas.arotas.model.Percorridas;
 import com.arotas.arotas.model.Status;
 import com.arotas.arotas.model.Veiculo;
 import com.arotas.arotas.model.Viagem;
 import com.arotas.arotas.service.LocalizacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.geo.GeoResults;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @RestController
 @RequestMapping("/loc")
@@ -16,6 +23,9 @@ public class LocalizacaoController {
 
     @Autowired
     LocalizacaoService service;
+
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     @GetMapping
     public List<Veiculo> veiculos(){
@@ -56,8 +66,19 @@ public class LocalizacaoController {
     }
 
     @GetMapping("/percorridas")
-    public  List<Viagem> resumoDasCorridas(){
-        return null;
+    public  List<Percorridas> resumoDasCorridas(){
+
+        Aggregation aggregation = newAggregation(
+                group("placa").sum("percorrida").as("kilometrosPercorridos"),
+                sort(Sort.Direction.ASC, previousOperation(), "placa")
+        );
+
+        AggregationResults groupResults = mongoTemplate.aggregate(
+                aggregation, Viagem.class, Percorridas.class);
+
+        List percorridas = groupResults.getMappedResults();
+
+        return percorridas;
     }
 
 }

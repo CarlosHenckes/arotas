@@ -13,16 +13,24 @@ public class Viagem implements Serializable {
     @Id
     private String id;
     private Timestamp horaInicio;
-    @DBRef
-    private Veiculo veiculo;
+    private String placa;
+    /*@DBRef
+    private Veiculo veiculo;*/
     private float percorrida;
 
     public Viagem(){}
 
-    public Viagem(String id, Timestamp horaInicio, Veiculo veiculo, float percorrida) {
+    /*public Viagem(String id, Timestamp horaInicio, Veiculo veiculo, float percorrida) {
         this.id = id;
         this.horaInicio = horaInicio;
         this.veiculo = veiculo;
+        this.percorrida = percorrida;
+    }*/
+
+    public Viagem(String id, Timestamp horaInicio, String placa, float percorrida) {
+        this.id = id;
+        this.horaInicio = horaInicio;
+        this.placa = placa;
         this.percorrida = percorrida;
     }
 
@@ -42,13 +50,13 @@ public class Viagem implements Serializable {
         this.horaInicio = horaInicio;
     }
 
-    public Veiculo getVeiculo() {
+    /*public Veiculo getVeiculo() {
         return veiculo;
     }
 
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
-    }
+    }*/
 
     public float getPercorrida() {
         return percorrida;
@@ -56,5 +64,13 @@ public class Viagem implements Serializable {
 
     public void setPercorrida(float percorrida) {
         this.percorrida = percorrida;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 }

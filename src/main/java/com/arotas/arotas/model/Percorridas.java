@@ -4,22 +4,14 @@ import java.io.Serializable;
 
 public class Percorridas implements Serializable {
 
-    private Veiculo veiculo;
+    private String placa;
     private float kilometrosPercorridos;
 
     public Percorridas(){}
 
-    public Percorridas(Veiculo veiculo, float kilometrosPercorridos) {
-        this.veiculo = veiculo;
+    public Percorridas(String placa, float kilometrosPercorridos) {
+        this.placa = placa;
         this.kilometrosPercorridos = kilometrosPercorridos;
-    }
-
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
     }
 
     public float getKilometrosPercorridos() {
@@ -28,5 +20,13 @@ public class Percorridas implements Serializable {
 
     public void setKilometrosPercorridos(float kilometrosPercorridos) {
         this.kilometrosPercorridos = kilometrosPercorridos;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 }
