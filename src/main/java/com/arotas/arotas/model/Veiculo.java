@@ -1,5 +1,6 @@
 package com.arotas.arotas.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,12 +9,15 @@ import java.io.Serializable;
 @Document
 public class Veiculo implements Serializable {
 
-    @Id
+    @Id @ApiModelProperty(notes = "Identidade gerada pelo próprio banco de dados")
     private String id;
+    @ApiModelProperty(notes = "Placa do veículo (AAA0000)")
     private String placa;
+    @ApiModelProperty(notes = "Nome fantasia do motorista (Avatar)")
     private String nomeMotorista;
-    @GeoSpatialIndexed
+    @GeoSpatialIndexed @ApiModelProperty(notes = "Objeto com a localização do veículo (latitude e longitude)")
     private Localizacao localizacao;
+    @ApiModelProperty(notes = "Status do veículo (TRANSITO, LIVRE, MANUTENCAO, INATIVO)")
     private Status status;
 
     public Veiculo(){}

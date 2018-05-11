@@ -1,7 +1,7 @@
 package com.arotas.arotas.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -10,22 +10,16 @@ import java.sql.Timestamp;
 @Document
 public class Viagem implements Serializable {
 
-    @Id
+    @Id @ApiModelProperty(notes = "Identidade gerada pelo próprio banco de dados")
     private String id;
+    @ApiModelProperty(notes = "Timestamp do início da corrida")
     private Timestamp horaInicio;
+    @ApiModelProperty(notes = "Placa do veículo")
     private String placa;
-    /*@DBRef
-    private Veiculo veiculo;*/
+    @ApiModelProperty(notes = "Quilômetros percorridos pela corrida")
     private float percorrida;
 
     public Viagem(){}
-
-    /*public Viagem(String id, Timestamp horaInicio, Veiculo veiculo, float percorrida) {
-        this.id = id;
-        this.horaInicio = horaInicio;
-        this.veiculo = veiculo;
-        this.percorrida = percorrida;
-    }*/
 
     public Viagem(String id, Timestamp horaInicio, String placa, float percorrida) {
         this.id = id;
@@ -49,14 +43,6 @@ public class Viagem implements Serializable {
     public void setHoraInicio(Timestamp horaInicio) {
         this.horaInicio = horaInicio;
     }
-
-    /*public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
-    }*/
 
     public float getPercorrida() {
         return percorrida;
