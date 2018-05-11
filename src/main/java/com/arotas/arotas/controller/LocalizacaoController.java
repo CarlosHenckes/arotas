@@ -32,22 +32,22 @@ public class LocalizacaoController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @GetMapping @ApiOperation(value = "Lista de veículos cadastrados", response = List.class)
+    @GetMapping(produces = "application/json") @ApiOperation(value = "Lista de veículos cadastrados", response = List.class)
     public List<Veiculo> veiculos(){
         return  service.veiculos();
     }
 
-    @GetMapping("/{placa}") @ApiOperation(value = "Dados do veículo por placa", response = Veiculo.class)
+    @GetMapping(value = "/{placa}", produces = "application/json") @ApiOperation(value = "Dados do veículo por placa", response = Veiculo.class)
     public Veiculo buscarVeiculoPorPlaca(@PathVariable(value = "placa") String placa){
         return service.veiculoPorPlaca(placa.toUpperCase());
     }
 
-    @GetMapping("/status/{status}") @ApiOperation(value = "Lista de veículos por status", response = List.class)
+    @GetMapping(value = "/status/{status}", produces = "application/json") @ApiOperation(value = "Lista de veículos por status", response = List.class)
     public  List<Veiculo> veiculosPorStatus(@PathVariable(value = "status") Status status){
         return service.veiculosPorStatus(status);
     }
 
-    @GetMapping("/near/{latitude}/{longitude}/{distance}")
+    @GetMapping(value = "/near/{latitude}/{longitude}/{distance}", produces = "application/json")
     @ApiOperation(value = "Lista de veículos ao redor da localização fornecida", response = GeoResults.class)
     public GeoResults<Veiculo> buscarVeiculosProximos(@PathVariable(value = "latitude") float latitude,
                                                       @PathVariable(value = "longitude") float longitude,
@@ -56,24 +56,26 @@ public class LocalizacaoController {
         return service.veiculosProximos(latitude, longitude, distance);
     }
 
-    @PostMapping @ApiOperation(value = "Registrar um novo veículo.")
+    @PostMapping(produces = "application/json") @ApiOperation(value = "Registrar um novo veículo.")
     public ResponseEntity adicionarVeiculo(@RequestBody Veiculo veiculo){
         service.adicionarVeiculo(veiculo);
         return new ResponseEntity("Novo veículo criado", HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping(produces = "application/json")
     @ApiOperation(value = "Atualizar dados do veículos cadastrados")
-    public void atualizarStatus(@RequestBody Veiculo veiculo){
+    public ResponseEntity atualizarStatus(@RequestBody Veiculo veiculo){
         service.atualizarStatus(veiculo);
+        return new ResponseEntity("Dados do veículo atualizado", HttpStatus.OK);
     }
 
-    @PostMapping("/corrida") @ApiOperation(value = "Registrar uma nova corrida para o veículo")
+    @PostMapping(value = "/corrida", produces = "application/json") @ApiOperation(value = "Registrar uma nova corrida para o veículo")
     public void adicinarCorrida(@RequestBody Viagem viagem){
+
         service.registrarCorrida(viagem);
     }
 
-    @GetMapping("/percorridas") @ApiOperation(value = "Sumário das corridas realizadas pela frota", response = List.class)
+    @GetMapping(value = "/percorridas", produces = "application/json") @ApiOperation(value = "Sumário das corridas realizadas pela frota", response = List.class)
     public  List<Percorridas> resumoDasCorridas(){
 
         Aggregation aggregation = newAggregation(
